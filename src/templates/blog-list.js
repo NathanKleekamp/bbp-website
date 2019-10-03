@@ -35,7 +35,7 @@ const Pagination = ({ numPages, currentPage }) => {
 class BlogList extends React.Component {
   render() {
     const { data } = this.props;
-    const posts = data.allMarkdownRemark.edges;
+    const posts = data.allMarkdownRemark.edges.filter(edge => !edge.node.frontmatter.postType);
     const siteTitle = data.site.siteMetadata.title;
     const { currentPage, numPages } = this.props.pageContext;
 
@@ -95,6 +95,7 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
+            postType
           }
         }
       }

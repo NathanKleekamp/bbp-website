@@ -1,6 +1,10 @@
 const path = require('path');
 const { createFilePath } = require('gatsby-source-filesystem');
 
+const constants = {
+  GLOSSARY: 'glossary',
+};
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const result = await graphql(`
@@ -16,6 +20,7 @@ exports.createPages = async ({ graphql, actions }) => {
             }
             frontmatter {
               title
+              postType
             }
           }
         }
@@ -27,8 +32,20 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors;
   }
 
-  // Create blog posts pages.
-  const posts = result.data.allMarkdownRemark.edges;
+  const { posts, glossaryTerms } = result.data.allMarkdownRemark.edges.reduce((accum, current) => {
+    if ((((current || {}).node || {}).frontmatter || {}).postType === constants.GLOSSARY) {
+      accum.glossaryTerms.push(current);
+      return accum;
+    }
+
+    accum.posts.push(current);
+    return accum;
+  }, {
+    posts: [],
+    glossaryTerms: [],
+  });
+
+  // Create individual blog posts pages with next/previous navigation within posts
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node;
     const next = index === 0 ? null : posts[index - 1].node;
@@ -40,6 +57,17 @@ exports.createPages = async ({ graphql, actions }) => {
         previous,
         next,
       },
+    });
+  });
+
+  // Create individual glossary term pages
+  glossaryTerms.forEach(term => {
+    const slug = term.node.fields.slug;
+    const postPath = `/glossary${slug}`;
+    createPage({
+      path: postPath,
+      component: path.resolve('./src/templates/glossary-term.js'),
+      context: { slug }
     });
   });
 
@@ -58,7 +86,6 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     });
   });
-
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
