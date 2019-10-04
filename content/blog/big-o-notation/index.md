@@ -1,10 +1,10 @@
 ---
 title: 'The basics of Big O notation'
 date: '2019-10-02T20:23:36.093Z'
-description: 'A post where I discuss the basics of Big O notation.'
+description: 'A post reviewing the basics of Big O notation.'
 ---
 
-For many self-taught developers, or those who do not come from a mathematics background, Big O notation can be an intimidating topic, especially since there are terms like _exponential_, _logarithmic_, _quadratic_, and _factorial_ peppered throughout.
+For many self-taught developers, or those who do not come from a mathematics background, Big O notation can be an intimidating topic, especially since there are terms like _exponential_, [_logarithmic_](/glossary/logarithmic/), [_quadratic_](/glossary/quadratic/), and [_factorial_](/glossary/factorial/) peppered throughout.
 
 But I'm here to tell you that while intimidating, this is definitely something you can learn.
 

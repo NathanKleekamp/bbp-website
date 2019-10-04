@@ -1,7 +1,7 @@
 ---
 title: 'Hello World'
 date: '2019-10-02T19:11:45.775Z'
-description: 'The obligatory first post, where I outline what I am trying to achieve with this project.'
+description: 'The obligatory first post, outlining what I am trying to achieve with this project.'
 ---
 
 I'm honestly a little unsure how to start this project. I guess maybe I can tell you a little about what I hope to achieve here.
