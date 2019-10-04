@@ -52,7 +52,7 @@ For what follows, we'll be focusing on Big O notation in terms of how long, or h
     <tr>
       <td>O(n²)</td>
       <td>Quadratic Time</td>
-      <td>The textbook example if quadratic time is nested <code>for</code> loops where you’re looping over the same array twice or the <a href ="https://en.wikipedia.org/wiki/Bubble_sort">Bubble sort</a> algorithm.</td>
+      <td>The textbook example of quadratic time is nested <code>for</code> loops where you’re looping over the same array twice or the <a href ="https://en.wikipedia.org/wiki/Bubble_sort">Bubble sort</a> algorithm.</td>
     </tr>
     <tr>
       <td>O(2^n)</td>
