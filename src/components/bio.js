@@ -26,7 +26,7 @@ const Bio = () => {
       style={{marginBottom: rhythm(2.5)}}
     >
       <p>
-        Written by <strong>{author}</strong>. This post available under a <a href="https://creativecommons.org/licenses/by-sa/3.0/us/">Creative Commons Attribution ShareAlike</a> license.
+        Written by <strong>{author}</strong>. This content is available under a <a href="https://creativecommons.org/licenses/by-sa/3.0/us/">Creative Commons Attribution ShareAlike</a> license.
       </p>
     </div>
   );
