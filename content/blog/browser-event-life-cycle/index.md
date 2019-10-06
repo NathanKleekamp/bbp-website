@@ -65,7 +65,7 @@ In the Bubble Phase, the event "bubbles" or goes back down the tree through each
 
 Using our reference HTML document, the event will go from the `body` to the `document`, where the event life cycle ends.
 
-## Specifying the Capture or Bubble Phase
+## Listening for events
 
 While an individual event goes through all 3 phases of the event life cycle, we control whether an element (the _event consumer_) listens to the Capture or Bubble Phase.
 
