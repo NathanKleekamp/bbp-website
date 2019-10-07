@@ -1,5 +1,5 @@
 ---
-title: "Euclid's Algorithm"
+title: "Euclid's algorithm"
 description: "My implementation of Euclid's algorithm to find the greatest common divisor of two positive integers"
 date: 2019-10-07T12:42:01.828Z
 ---
