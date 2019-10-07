@@ -4,7 +4,7 @@ date: 2019-10-06T17:41:28.127Z
 description: An inquiry into the different phases of the event life cycle.
 ---
 
-This is, currently, one of my favorite concepts to ask candidates about during the interview process. The browser's event life cycle is something that a front-end developer can develop against for some time without fully understanding. I find it to be a good gage of a person's experience and overall knowledge of the web platform, especially since responding to events is so central to the applications we build.
+This is one of my favorite concepts to ask candidates about during an interview. The browser's event life cycle is something that a front-end developer can develop against for some time without fully understanding. I find it to be a good gauge of a person's experience and overall knowledge of the web platform, especially since responding to events is so central to the applications we build.
 
 ## Event-driven architecture
 
