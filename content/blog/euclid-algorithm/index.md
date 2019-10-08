@@ -4,9 +4,9 @@ description: "My implementation of Euclid's algorithm to find the greatest commo
 date: 2019-10-07T12:42:01.828Z
 ---
 
-I've recently begun working my way through Donald E. Knuth's seminal computer science work, "[The Art of Computer Programming](https://www-cs-faculty.stanford.edu/~knuth/taocp.html)", and the first [algorithm](/glossary/algorithm/) introduced is Euclid's Algorithm to find the greatest common divisor of two positive integers.
+I've recently begun working my way through volume one of Donald E. Knuth's seminal computer science work, "[The Art of Computer Programming](https://www-cs-faculty.stanford.edu/~knuth/taocp.html)", and the first [algorithm](/glossary/algorithm/) introduced is Euclid's Algorithm to find the greatest common divisor of two positive integers.
 
-What follows is my (recursive) implementation, in JavaScript.
+What follows is my (recursive) implementation in JavaScript.
 
 ```js
 const gcd = (x, y) => {
