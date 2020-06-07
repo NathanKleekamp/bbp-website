@@ -47,7 +47,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \"",
-    "lint:fix": "eslint --fix src/**/*.js"
+    "lint:fix": "eslint --fix src/**/*.js",
+    "deploy": "aws s3 sync public/ s3://bigbrightpixels.com"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
