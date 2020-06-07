@@ -5,7 +5,7 @@ module.exports = {
     title,
     author: 'Nathan Kleekamp',
     description: 'Thoughts on code.',
-    siteUrl: 'https://klee.kamp.io',
+    siteUrl: 'https://bigbrightpixels.com',
     social: {
       twitter: 'nathankleekamp',
       github: 'nathankleekamp',
