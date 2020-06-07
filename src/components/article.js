@@ -1,8 +1,8 @@
-import React from 'react';
-import Bio from '../components/bio';
-import { rhythm, scale } from '../utils/typography';
+import React from "react";
+import Bio from "../components/bio";
+import { rhythm, scale } from "../utils/typography";
 
-const Article = function(props) {
+const Article = function (props) {
   return (
     <article>
       <header>

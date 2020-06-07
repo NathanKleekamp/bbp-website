@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link, graphql } from 'gatsby';
-import Layout from '../components/layout';
-import SEO from '../components/seo';
-import Article from '../components/article';
+import React from "react";
+import { Link, graphql } from "gatsby";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import Article from "../components/article";
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -17,10 +17,7 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
-        <Article
-          frontmatter={post.frontmatter}
-          html={post.html}
-        />
+        <Article frontmatter={post.frontmatter} html={post.html} />
         <nav>
           <ul
             style={{
@@ -33,14 +30,14 @@ class BlogPostTemplate extends React.Component {
           >
             <li>
               {previous && (
-                <Link to={previous.fields.slug} rel='prev'>
+                <Link to={previous.fields.slug} rel="prev">
                   ← {previous.frontmatter.title}
                 </Link>
               )}
             </li>
             <li>
               {next && (
-                <Link to={next.fields.slug} rel='next'>
+                <Link to={next.fields.slug} rel="next">
                   {next.frontmatter.title} →
                 </Link>
               )}

@@ -1,8 +1,8 @@
-import React from 'react';
-import { graphql } from 'gatsby';
-import Layout from '../components/layout'
-import SEO from '../components/seo'
-import Article from '../components/article';
+import React from "react";
+import { graphql } from "gatsby";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import Article from "../components/article";
 
 class GlossaryTermTemplate extends React.Component {
   render() {
@@ -14,7 +14,9 @@ class GlossaryTermTemplate extends React.Component {
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
           title={glossaryTerm.frontmatter.title}
-          description={glossaryTerm.frontmatter.description || glossaryTerm.excerpt}
+          description={
+            glossaryTerm.frontmatter.description || glossaryTerm.excerpt
+          }
         />
         <Article
           frontmatter={glossaryTerm.frontmatter}
