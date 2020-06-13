@@ -1,18 +1,57 @@
 ---
 title: "Linked list implementation in Deno, part 2"
-date: "2020-06-10T01:24:40.739Z"
+date: "2020-06-13T17:04:54Z"
 description: "Let's continue our implementation of a linked list in Typescript and Deno!"
 ---
 
-In my [previous post](/linked-list/), we implemented some core features necessary to complete a linked list implementation in Typescript. If you haven't read that post, I encourage you to do so before moving on.
+In the [previous post](/linked-list/), we implemented some core features necessary to build a linked list in Typescript. If you haven't read it, go check it out.
 
-Before jumping into the remaining methods on our linked list implementation, let's highlight a helper method that makes working with possibly undefined values a little nicer.
+## A (short) detour into Typescript: type assertion functions
 
-## Type guards
+Before jumping into the remaining methods of our linked list, let's examine a helper function we'll use a bit later that makes working with possibly nullish values a little nicer.
 
-TODO
+The Typescript dev team introduced type assertion functions in Typescript 3.7. One of my favorite ways to use type assertion functions is the `assertIsDefined` helper:
 
+```ts
+export function assertIsDefined<T>(value: T): asserts value is NonNullable<T> {
+  if (value === undefined || value === null) {
+    throw new Error(`AssertionError: expected value ${value} to be NonNullable.`);
+  }
+}
 
+type Example = {
+  name: string;
+  address?: {
+    city: string;
+    postalCode?: string;
+  }
+};
+
+const nathan: Example = {
+  name: "nathan",
+  address: { city: "Washington" },
+};
+
+assertIsDefined(nathan.address);
+
+// No Typescript errors that "nathan.address" is possibly undefined
+console.log(nathan.address.city)
+```
+
+Type assertion functions eliminate clumsy conditional code, like:
+
+```ts
+if (nathan.address) {
+  console.log(nathan.address.city);
+}
+```
+
+If you're interested in reading more about type assertion functions, check out:
+
+* The [release notes](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions) for 3.7
+* The [PR](https://github.com/microsoft/TypeScript/pull/32695) implementing type assertion functions
+
+With that, let's resume our linked list implementation!
 
 ## Linked list methods, part 2
 
@@ -23,8 +62,8 @@ In part 2 of our linked list implementation, we'll be adding the following publi
   <dd>Delete all nodes from the list.</dd>
 
   <dt>LinkedList.prototype.index</dt>
-  <dd>Return the node at the given index.</dd>
 
+  <dd>Retrieve the node at the given index.</dd>
   <dt>LinkedList.prototype.insert</dt>
   <dd>Insert a node at the head of the list.</dd>
 
@@ -32,16 +71,16 @@ In part 2 of our linked list implementation, we'll be adding the following publi
   <dd>Insert a node at the given index.</dd>
 
   <dt>LinkedList.prototype.remove</dt>
-  <dd>Delete the node with a given value.</dd>
+  <dd>Delete the given node.</dd>
 
   <dt>LinkedList.prototype.removeAt</dt>
   <dd>Delete a node at the given index.</dd>
 
   <dt>LinkedList.prototype.removeFirst</dt>
-  <dd>Delete the first node in the list.</dd>
+  <dd>Delete the first node (a.k.a. <code>head</code>) in the list.</dd>
 
   <dt>LinkedList.prototype.removeLast</dt>
-  <dd>Delete the last node in the list.</dd>
+  <dd>Delete the last node (a.k.a. <code>tail</code>) in the list.</dd>
 </dl>
 
 ### LinkedList.prototype.clear
@@ -76,7 +115,7 @@ class LinkedList<T> {
 
 ### LinkedList.prototype.index
 
-Finding a node at a given index takes a little more work. We've made some optimizations to our linked list by keeping track of our `head` and `tail` nodes. Accessing each of those is an **O(1)** operation. Since we are also tracking how many nodes our list has in the `count` property, we can easily tell if a provided index is out-of-bounds. That means the most expensive lookup, __O(n)__, will take place one before the `tail` node because we have to cycle through each node until we reach it.
+Finding a node at a given index takes a little more work. We've made some optimizations to our linked list by keeping track of our `head` and `tail` nodes. Accessing each of those is an __O(1)__ operation. Since we are also tracking how many nodes our list has in the `count` property, we can easily tell if a provided index is out-of-bounds. That means the most expensive lookup, __O(n)__, will be accessing the node just before the `tail` because we have to cycle through each node until we reach it.
 
 ```ts
 class LinkedList {
@@ -143,7 +182,7 @@ class LinkedList {
 
 ### LinkedList.prototype.insert
 
-With the `insert` method, a new node is inserted at the head of the list. It is an __O(1)__ operation because the head of the list is always known. So inserting a node is as simple as instantiating a new node and updating the pointers on the new node and the previous `head`.
+With the `insert` method, we can insert a new node at the head of the list. Insert is an __O(1)__ operation because the head of the list is always known. Insertion is as simple as instantiating a new node and updating the pointers on the new node and the previous `head`. Not too different, conceptually, from our append method from part one!
 
 ```ts
 class LinkedList {
@@ -177,6 +216,8 @@ class LinkedList {
 ```
 
 ### LinkedList.prototype.insertAt
+
+The `inserAt` method uses the index method from earlier to grab a reference to the current node occupying the index where we want to insert the new node (notice the use of `assertIsDefined`!). Then it's just a matter of updating pointers and incrementing the `count` property.
 
 ```ts
 class LinkedList {
@@ -230,6 +271,22 @@ class LinkedList {
 ```
 
 ### LinkedList.prototype.remove
+
+Now that we have a couple methods for adding nodes to the linked list, we also need a way to remove a node. We'll start with the `remove` method, because it will get reused in the other "remove" convenience methods.
+
+To remove a node, we first need a reference to it. For the sake of clarity, let's refer to the node being removed as the _removed node_.
+
+First, we'll grab the `previous` and `next` properties of the _removed node_. If the `previous` property points to a node, we update the previous' node's `next` property to point the _removed node_'s `next` node.
+
+If the _remove node_'s `previous` property does not contain a pointer to node, that means it's the list's current head. So we'll have to update the `head` property of the list to point to the _removed node_'s `next` node.
+
+If the _remove node_'s `next` property points to a node, we'll update it so that the next node's `previous` property points to the _removed node_'s `previous` node.
+
+If the _remove node_'s `next` property does not contain a pointer to a node, that means it's the list's current `tail`. So we need to update the `tail` property of the list to point to the _removed node_'s `previous` node.
+
+Finally, we'll decrement the count property to reflect the removal of the node.
+
+Phew, that's a lot of words! The code expresses the same idea much more succinctly!
 
 ```ts
 class LinkedList {
@@ -285,6 +342,8 @@ class LinkedList {
 
 ### LinkedList.prototype.removeAt
 
+Now that we have `index` and `remove` methods, removing a node at a given index is very easy.
+
 ```ts
 class LinkedList {
   ...
@@ -319,6 +378,8 @@ class LinkedList {
 
 ### LinkedList.prototype.removeFirst
 
+Likewise, `removeFirst` is an easy implementation.
+
 ```ts
 class LinkedList {
   ...
@@ -345,6 +406,8 @@ class LinkedList {
 ```
 
 ### LinkedList.prototype.removeLast
+
+So is `removeLast`.
 
 ```ts
 class LinkedList {
