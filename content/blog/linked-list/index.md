@@ -131,6 +131,8 @@ If the list was empty, the new node will become both the `head` and `tail` nodes
 
 Finally, we increment the `count` property because we've added a new node.
 
+Our `append` method is an __O(1)__ operation because we're keeping track of each node at the end of the list with the `tail` property.
+
 ### A (slight) detour into unit testing with Deno
 
 Deno's standard library has some assertion functions to facilitate testing. Let's import `assertEquals`, so we can test our implementation so far. Deno supports ES6 <code>import</code> statements out-of-the-box with one caveat; instead of importing a package from a <code>node_modules</code> directory, you pass it a fully qualified URL.
