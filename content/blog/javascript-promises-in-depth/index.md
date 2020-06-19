@@ -1,10 +1,10 @@
 ---
 title: "Asynchronous JavaScript, part 1: Callbacks"
 description: "Part 1 of our series on writing asynchronous JavaScript."
-date: "2020-06-13T17:28:26Z"
+date: "2020-06-19T21:04:05.355Z"
 ---
 
-I have been working on this post for a while. Originally, I planned to write a big piece on Promises, but given the delays finishing it, I decided to break it into smaller parts. This fist post provides some context around how async code has been written in the past. In future installments, we'll get into Promises, generators and how they make async/await possible, and, finally, how JavaScript engines and browsers work together to queue and execute synchronous and asynchronous code.
+I have been working on this post for a while. Originally, I planned to write a big piece on promises, but given the delays finishing it, I decided to break it into smaller parts. This fist post provides some context around how async code has been written in the past. In future installments, we'll get into promises, generators and how they make async/await possible, and, finally, how JavaScript engines and browsers work together to queue and execute synchronous and asynchronous code.
 
 ## Some context
 
@@ -27,7 +27,7 @@ What we really want is a way to hand off `someVeryLongRunningTask()` to some oth
 
 ### Callbacks
 
-Before the addition of the Promise API to the JavaScript spec, the only method available to developers to write asynchronous operations was the so-called "callback" function. If you've been developing with JavaScript for a while, you've likely encountered something like the following:
+Before the addition of the promise API to the JavaScript spec, the only method available to developers to write asynchronous operations was the so-called "callback" function. If you've been developing with JavaScript for a while, you've likely encountered something like the following:
 
 ```js
 const cartPath = 'https://api.example.com/carts/a2b17167-d059-4cc2-8fd9-f404d932d42f';
@@ -71,4 +71,4 @@ From a developer experience, nested callbacks can are a pain. Not only are they 
 
 ### Looking ahead: Promises
 
-Thankfully, with the introduction of Promises, many of these issues have been addressed, and in part 2, we'll turn our attention to the problems they solves, how they work, and possible gotchas.
+Thankfully, with the introduction of promises, many of these issues have been addressed. In part 2, we'll turn our attention to the problems promises solves, how they work, and possible gotchas.
