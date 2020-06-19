@@ -86,6 +86,7 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
+      filter: { frontmatter: { postType: { eq: null } } }
       sort: { fields: [frontmatter___date], order: DESC }
       skip: $skip
       limit: $limit
